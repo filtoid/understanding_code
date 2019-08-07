@@ -1,0 +1,53 @@
+<html>
+    <head>
+        <script>
+            // Global vars
+            var canvas = null;
+            var ctx = null;
+            var loc = 50;
+            var isMovingLeft = false;
+
+            function page_loaded(){
+                // The page has finished loading so we 
+                canvas = document.getElementById('canvas');
+                ctx = canvas.getContext('2d');
+                setInterval(update, 40);
+            }  
+
+            function update(){
+                // Move the ball
+                if(isMovingLeft){
+                    loc -= 4;
+                }else{
+                    loc += 4;
+                }
+                if(loc > 200){
+                    isMovingLeft = true;
+                }else if(loc < 50){
+                    isMovingLeft = false;
+                }
+
+                // Do the drawing
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.save();
+                
+                // Begin to draw lines
+                ctx.beginPath();
+                // Draw the circle
+                ctx.arc(loc, 75, 50, 0, 2 * Math.PI);
+                // Complete the drawing of this set of lines
+                ctx.stroke();
+
+                ctx.restore();
+            }
+        </script>
+    </head>
+    <body onload='page_loaded()'>
+        <h1>Our first animation in Javascript</h1>
+        <div id='canvas_div'>
+            <canvas id="canvas" style='margin:50px;' width="600" height="250">
+                <p>Your browser does not support the canvas element.</p>
+            </canvas>
+        </div>
+    </body>
+</html>
